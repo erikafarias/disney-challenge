@@ -5,15 +5,16 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "personaje")
+@Table(name = "characters")
 @Getter
 @Setter
 public class CharacterEntity {
 
     @Id
-    @GeneratedValue(strategy = generationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     private String name;
@@ -25,5 +26,6 @@ public class CharacterEntity {
     private String history;
 
     @ManyToMany(mappedBy = "characters", cascade = CascadeType.ALL)
-    private List<Movie> movies = new ArrayList<Movie>();
+    private List<MovieEntity> movies = new ArrayList<>();
+
 }
