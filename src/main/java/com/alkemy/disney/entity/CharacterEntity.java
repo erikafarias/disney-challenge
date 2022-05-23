@@ -25,7 +25,13 @@ public class CharacterEntity {
 
     private String history;
 
-    @ManyToMany(mappedBy = "characters", cascade = CascadeType.ALL)
+    @ManyToMany
+            (mappedBy = "characters",
+                cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+                })
+
     private List<MovieEntity> movies = new ArrayList<>();
 
 }
