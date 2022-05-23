@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "characters")
@@ -15,5 +17,21 @@ public class CharacterEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    private String name;
+
+    private Integer age;
+
+    private Double weight;
+
+    private String history;
+
+    @ManyToMany
+            (mappedBy = "characters",
+                cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+                })
+
+    private List<MovieEntity> movies = new ArrayList<>();
 
 }
