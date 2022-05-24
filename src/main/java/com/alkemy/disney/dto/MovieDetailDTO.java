@@ -1,6 +1,7 @@
 package com.alkemy.disney.dto;
 
 import com.alkemy.disney.entity.CharacterEntity;
+import com.alkemy.disney.entity.GenreEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,5 +22,6 @@ public class MovieDetailDTO {
     private LocalDate creationDate;
     private int score;
     private Long genreId;
+    // TODO: cambiar a DTO cuando estén hechos
     private Set<CharacterEntity> characters = new HashSet<>();
 }

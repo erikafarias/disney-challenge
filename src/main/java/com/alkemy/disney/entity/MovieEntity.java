@@ -37,6 +37,9 @@ public class MovieEntity {
     @JoinColumn(name = "genre_id", insertable = false, updatable = false)
     private GenreEntity genre;
 
+    @Column(name = "genre_id")
+    private Long genreId;
+
     @ManyToMany(
             cascade = {
                     CascadeType.PERSIST,
@@ -50,13 +53,13 @@ public class MovieEntity {
     private Set<CharacterEntity> characters = new HashSet<>();
 
 
-    public MovieEntity(String image, String title, LocalDate creationDate, int score, GenreEntity genre,
+    public MovieEntity(String image, String title, LocalDate creationDate, int score, Long genreId,
                        Set<CharacterEntity> characters) {
         this.image = image;
         this.title = title;
         this.creationDate = creationDate;
         this.score = score;
-        this.genre = genre;
+        this.genreId = genreId;
         this.characters = characters;
     }
 }
