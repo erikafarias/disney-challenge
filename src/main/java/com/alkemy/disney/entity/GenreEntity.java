@@ -18,7 +18,7 @@ public class GenreEntity {
 
     private String name;
 
-    @OneToMany(mappedBy = "genre", cascade = {
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "genre", cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
