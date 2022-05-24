@@ -31,7 +31,6 @@ public class CharacterEntity {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
                 })
-
     private List<MovieEntity> movies = new ArrayList<>();
 
 }
