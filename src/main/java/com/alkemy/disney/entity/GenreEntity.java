@@ -17,7 +17,6 @@ public class GenreEntity {
     private Long id;
 
     private String name;
-    private String image;
 
     @OneToMany(mappedBy = "genre", cascade = {
             CascadeType.PERSIST,
