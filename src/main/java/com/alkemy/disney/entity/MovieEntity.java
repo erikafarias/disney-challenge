@@ -1,6 +1,8 @@
 package com.alkemy.disney.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -13,6 +15,7 @@ import java.util.Set;
 @Table(name = "movie")
 @Getter
 @Setter
+@AllArgsConstructor @NoArgsConstructor
 public class MovieEntity {
 
     @Id
@@ -47,4 +50,13 @@ public class MovieEntity {
     private Set<CharacterEntity> characters = new HashSet<>();
 
 
+    public MovieEntity(String image, String title, LocalDate creationDate, int score, GenreEntity genre,
+                       Set<CharacterEntity> characters) {
+        this.image = image;
+        this.title = title;
+        this.creationDate = creationDate;
+        this.score = score;
+        this.genre = genre;
+        this.characters = characters;
+    }
 }
