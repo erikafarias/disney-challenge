@@ -18,5 +18,6 @@ public class MovieController {
     @GetMapping("/movies")
     public ResponseEntity<List<MovieDetailDTO>> getMovies(){
         List<MovieDetailDTO> movies = movieService.getAllMovies();
+        return ResponseEntity.ok().body(movies);
 }
 }
