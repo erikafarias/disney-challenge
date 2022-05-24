@@ -19,7 +19,7 @@ public class GenreEntity {
     private String name;
     private String image;
 
-    @ManyToMany(mappedBy = "genres",
+    @ManyToMany(mappedBy = "genre",
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
