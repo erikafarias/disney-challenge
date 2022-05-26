@@ -18,7 +18,7 @@ public class CharacterController {
     private CharacterService characterService;
 
     @PostMapping
-    public ResponseEntity<CharacterDTO> create(@RequestBody CharacterDTO character) {
+    public ResponseEntity<CharacterDTO> save(@RequestBody CharacterDTO character) {
         CharacterDTO savedCharacter = characterService.save(character);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedCharacter);
     }

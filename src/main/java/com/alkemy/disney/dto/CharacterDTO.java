@@ -15,4 +15,17 @@ public class CharacterDTO {
     private Double weight;
     private String history;
     private List<MovieEntity> movies;
+
+    @Override
+    public String toString() {
+        return "CharacterDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", weight=" + weight +
+                ", history='" + history + '\'' +
+                ", movies=" + movies +
+                '}';
+    }
 }
+

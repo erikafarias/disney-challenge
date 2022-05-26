@@ -24,7 +24,7 @@ public class CharacterServiceImpl implements CharacterService {
         CharacterEntity characterEntitySaved = characterRepository.save(characterEntity);
         System.out.println("Convertir Personaje de Entity a DTO");
         CharacterDTO result = characterMapper.characterEntity2DTO(characterEntitySaved);
-        System.out.println("Devolver Resultado");
+        System.out.println("Devolver Resultado: " + result.toString());
         return result;
     }
 }
