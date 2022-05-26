@@ -14,7 +14,7 @@ public class GenreController {
     private GenreService genreService;
 
     @PostMapping("/genres")
-    public void addGenre(@RequestBody GenreEntity genre) {
-        genreService.addGenre(genre);
+    public GenreEntity addGenre(@RequestBody GenreEntity genre) {
+        return genreService.addGenre(genre);
     }
 }

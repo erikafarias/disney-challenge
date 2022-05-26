@@ -11,8 +11,9 @@ public class GenreService {
     @Autowired
     private GenreRepository genreRepository;
 
-    public void addGenre(GenreEntity genre) {
+    public GenreEntity addGenre(GenreEntity genre) {
         genreRepository.save(genre);
+        return genre;
     }
 
 
