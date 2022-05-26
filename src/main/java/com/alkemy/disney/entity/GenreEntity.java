@@ -1,6 +1,8 @@
 package com.alkemy.disney.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +12,8 @@ import java.util.List;
 @Table(name = "genre")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class GenreEntity {
 
     @Id
@@ -23,6 +27,9 @@ public class GenreEntity {
             CascadeType.MERGE
     })
     private List<MovieEntity> movies;
+
+
+
 
 
 
