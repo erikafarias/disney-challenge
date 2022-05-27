@@ -1,5 +1,8 @@
 package com.alkemy.disney.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,13 +36,14 @@ public class MovieEntity {
 
     private int score;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "genre_id", insertable = false, updatable = false)
     private GenreEntity genre;
+//
+//    @Column(name = "genre_id")
+//    private Long genreId;
 
-    @Column(name = "genre_id")
-    private Long genreId;
-
+    @JsonIgnore
     @ManyToMany(
             cascade = {
                     CascadeType.PERSIST,
@@ -53,13 +57,12 @@ public class MovieEntity {
     private Set<CharacterEntity> characters = new HashSet<>();
 
 
-    public MovieEntity(String image, String title, LocalDate creationDate, int score, Long genreId,
+    public MovieEntity(String image, String title, int score, GenreEntity genre,
                        Set<CharacterEntity> characters) {
         this.image = image;
         this.title = title;
-        this.creationDate = creationDate;
         this.score = score;
-        this.genreId = genreId;
+        this.genre = genre;
         this.characters = characters;
     }
 }
