@@ -9,7 +9,6 @@ import java.time.LocalDate;
 
 @Setter @Getter @AllArgsConstructor @NoArgsConstructor
 public class MovieListDTO {
-    private Long id;
     private String image;
     private String title;
     private LocalDate creationDate;
