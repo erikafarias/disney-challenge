@@ -8,6 +8,8 @@ import com.alkemy.disney.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CharacterServiceImpl implements CharacterService {
 
@@ -25,6 +27,12 @@ public class CharacterServiceImpl implements CharacterService {
         System.out.println("Convertir Personaje de Entity a DTO");
         CharacterDTO result = characterMapper.characterEntity2DTO(characterEntitySaved);
         System.out.println("Devolver Resultado: " + result.toString());
+        return result;
+    }
+
+    public List<CharacterDTO> getAllCharacters() {
+        List<CharacterEntity> characters = characterRepository.findAll();
+        List<CharacterDTO> result = characterMapper.characterEntityList2DTOList(characters);
         return result;
     }
 }
