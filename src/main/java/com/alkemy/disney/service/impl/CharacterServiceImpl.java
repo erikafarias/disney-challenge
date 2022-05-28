@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CharacterServiceImpl implements CharacterService {
@@ -36,6 +37,25 @@ public class CharacterServiceImpl implements CharacterService {
     public CharacterDTO getCharacterDetailsByID(Long id) {
         CharacterEntity character = characterRepository.getById(id);
         CharacterDTO result = characterMapper.characterEntity2DTO(character);
+        return result;
+    }
+
+    public CharacterDTO update(Long id, CharacterDTO character) {
+        // Paso 1
+        Optional<CharacterEntity> characterEntityToUpdate = characterRepository.findById(id);
+        CharacterEntity characterToUpdate = characterEntityToUpdate.get();
+
+        characterToUpdate.setName(character.getName());
+        characterToUpdate.setAge(character.getAge());
+        characterToUpdate.setHistory(character.getHistory());
+        characterToUpdate.setWeight(character.getWeight());
+        characterToUpdate.setMovies(character.getMovies());
+
+        // Me actualiza los registros pero tambien me guarda uno nuevo
+
+        characterToUpdate = characterMapper.characterDTO2Entity(character);
+        CharacterEntity characterEntityUpdated = characterRepository.save(characterToUpdate);
+        CharacterDTO result = characterMapper.characterEntity2DTO(characterEntityUpdated);
         return result;
     }
 }

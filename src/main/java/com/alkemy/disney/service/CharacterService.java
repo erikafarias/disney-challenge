@@ -11,4 +11,6 @@ public interface CharacterService {
     List<CharacterDTO> getAllCharacters();
 
     CharacterDTO getCharacterDetailsByID(Long id);
+
+    CharacterDTO update(Long id, CharacterDTO character);
 }
