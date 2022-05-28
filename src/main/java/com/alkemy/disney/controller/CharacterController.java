@@ -27,4 +27,10 @@ public class CharacterController {
         List<CharacterDTO> characters = characterService.getAllCharacters();
         return ResponseEntity.ok().body(characters);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CharacterDTO> getCharacterDetailsByID(@PathVariable Long id){
+        CharacterDTO character = characterService.getCharacterDetailsByID(id);
+        return ResponseEntity.ok(character);
+    }
 }

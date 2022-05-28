@@ -20,19 +20,22 @@ public class CharacterServiceImpl implements CharacterService {
     private CharacterRepository characterRepository;
 
     public CharacterDTO save(CharacterDTO dto) {
-        System.out.println("Convertir Personaje de DTO a Entity");
         CharacterEntity characterEntity = characterMapper.characterDTO2Entity(dto);
-        System.out.println("Guardar Personaje");
         CharacterEntity characterEntitySaved = characterRepository.save(characterEntity);
-        System.out.println("Convertir Personaje de Entity a DTO");
         CharacterDTO result = characterMapper.characterEntity2DTO(characterEntitySaved);
-        System.out.println("Devolver Resultado: " + result.toString());
         return result;
     }
 
     public List<CharacterDTO> getAllCharacters() {
         List<CharacterEntity> characters = characterRepository.findAll();
         List<CharacterDTO> result = characterMapper.characterEntityList2DTOList(characters);
+        return result;
+    }
+
+    @Override
+    public CharacterDTO getCharacterDetailsByID(Long id) {
+        CharacterEntity character = characterRepository.getById(id);
+        CharacterDTO result = characterMapper.characterEntity2DTO(character);
         return result;
     }
 }

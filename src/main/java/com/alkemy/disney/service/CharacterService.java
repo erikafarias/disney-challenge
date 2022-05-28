@@ -9,4 +9,6 @@ public interface CharacterService {
     CharacterDTO save(CharacterDTO dto);
 
     List<CharacterDTO> getAllCharacters();
+
+    CharacterDTO getCharacterDetailsByID(Long id);
 }
