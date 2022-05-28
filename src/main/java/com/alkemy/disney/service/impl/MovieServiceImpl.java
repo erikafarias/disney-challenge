@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MovieServiceImpl implements MovieService {
@@ -47,5 +48,19 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public void deleteMovie(Long id) {
         movieRepository.deleteById(id);
+    }
+
+    @Override
+    public MovieDetailDTO updateMovie(Long id, MovieDetailDTO movie) {
+        Optional<MovieEntity> movieEntity = movieRepository.findById(id);
+        MovieEntity movieToUpdate = movieEntity.get();
+        movieToUpdate.setTitle(movie.getTitle());
+        movieToUpdate.setImage(movie.getImage());
+        movieToUpdate.setScore(movie.getScore());
+        movieToUpdate.setCharacters(movie.getCharacters());
+        movieToUpdate.setGenre(movie.getGenre());
+
+        MovieEntity updatedMovie = movieRepository.save(movieToUpdate);
+        return modelMapper.map(updatedMovie, MovieDetailDTO.class);
     }
 }

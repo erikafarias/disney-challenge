@@ -38,4 +38,10 @@ public class MovieController {
         movieService.deleteMovie(id);
         return ResponseEntity.ok().body("Movie deleted successfully");
     }
+
+    @PutMapping("/movies/{id}")
+    public ResponseEntity<MovieDetailDTO> updateMovie(@PathVariable Long id, @RequestBody MovieDetailDTO movie){
+        MovieDetailDTO movieUpdated = movieService.updateMovie(id, movie);
+        return ResponseEntity.ok().body(movieUpdated);
+    }
 }
