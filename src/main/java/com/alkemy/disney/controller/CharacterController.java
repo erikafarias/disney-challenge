@@ -39,4 +39,10 @@ public class CharacterController {
         CharacterDTO updatedCharacter = characterService.update(id,character);
         return ResponseEntity.ok().body(updatedCharacter);
     }
+
+    @DeleteMapping("/{id}/delete")
+    public ResponseEntity<CharacterDTO> delete(@PathVariable Long id){
+        CharacterDTO deletedCharacter = characterService.delete(id);
+        return ResponseEntity.ok(deletedCharacter);
+    }
 }
