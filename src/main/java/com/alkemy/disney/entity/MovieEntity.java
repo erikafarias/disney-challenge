@@ -1,6 +1,9 @@
 package com.alkemy.disney.entity;
 
+import com.fasterxml.jackson.annotation.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -13,6 +16,7 @@ import java.util.Set;
 @Table(name = "movie")
 @Getter
 @Setter
+@AllArgsConstructor @NoArgsConstructor
 public class MovieEntity {
 
     @Id
@@ -30,9 +34,13 @@ public class MovieEntity {
 
     private int score;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "genre_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "genre_id")
     private GenreEntity genre;
+//
+//    @Column(name = "genre_id")
+//    private Long genreId;
+
 
     @ManyToMany(
             cascade = {
@@ -47,4 +55,12 @@ public class MovieEntity {
     private Set<CharacterEntity> characters = new HashSet<>();
 
 
+    public MovieEntity(String image, String title, int score, GenreEntity genre,
+                       Set<CharacterEntity> characters) {
+        this.image = image;
+        this.title = title;
+        this.score = score;
+        this.genre = genre;
+        this.characters = characters;
+    }
 }

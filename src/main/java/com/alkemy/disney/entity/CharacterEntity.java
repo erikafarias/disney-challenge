@@ -1,6 +1,9 @@
 package com.alkemy.disney.entity;
 
+import com.fasterxml.jackson.annotation.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +14,7 @@ import java.util.List;
 @Table(name = "characters")
 @Getter
 @Setter
+@AllArgsConstructor @NoArgsConstructor
 public class CharacterEntity {
 
     @Id
@@ -33,4 +37,11 @@ public class CharacterEntity {
                 })
     private List<MovieEntity> movies = new ArrayList<>();
 
+
+    public CharacterEntity(String name, Integer age, Double weight, String history) {
+        this.name = name;
+        this.age = age;
+        this.weight = weight;
+        this.history = history;
+    }
 }
