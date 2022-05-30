@@ -1,8 +1,6 @@
 package com.alkemy.disney.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,7 +41,7 @@ public class MovieEntity {
 //    @Column(name = "genre_id")
 //    private Long genreId;
 
-    @JsonIgnore
+
     @ManyToMany(
             cascade = {
                     CascadeType.PERSIST,

@@ -1,8 +1,6 @@
 package com.alkemy.disney.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,7 +29,6 @@ public class CharacterEntity {
 
     private String history;
 
-    @JsonIgnore
     @ManyToMany
             (mappedBy = "characters",
                 cascade = {
