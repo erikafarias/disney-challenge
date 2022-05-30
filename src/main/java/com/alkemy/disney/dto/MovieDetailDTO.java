@@ -19,11 +19,11 @@ public class MovieDetailDTO {
     private String title;
     private LocalDate creationDate;
     private int score;
-    private String genre;
+    private GenreDTO genre;
     // TODO: cambiar a DTO cuando estén hechos
     private Set<CharacterMovieDTO> characters = new HashSet<>();
 
-    public MovieDetailDTO(String image, String title, int score, String genre, Set<CharacterMovieDTO> characters) {
+    public MovieDetailDTO(String image, String title, int score, GenreDTO genre, Set<CharacterMovieDTO> characters) {
         this.image = image;
         this.title = title;
         this.score = score;
