@@ -16,19 +16,19 @@ public class CharacterController {
     @Autowired
     private CharacterService characterService;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<CharacterDTO> save(@RequestBody CharacterDTO character) {
         CharacterDTO savedCharacter = characterService.save(character);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedCharacter);
     }
 
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<List<CharacterDTO>> getAll() {
         List<CharacterDTO> characters = characterService.getAllCharacters();
         return ResponseEntity.ok().body(characters);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getById/{id}")
     public ResponseEntity<CharacterDTO> getCharacterDetailsByID(@PathVariable Long id){
         CharacterDTO character = characterService.getCharacterDetailsByID(id);
         return ResponseEntity.ok(character);

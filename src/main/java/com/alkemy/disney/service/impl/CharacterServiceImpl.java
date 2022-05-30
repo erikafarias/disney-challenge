@@ -33,7 +33,6 @@ public class CharacterServiceImpl implements CharacterService {
         return result;
     }
 
-    @Override
     public CharacterDTO getCharacterDetailsByID(Long id) {
         CharacterEntity character = characterRepository.getById(id);
         CharacterDTO result = characterMapper.characterEntity2DTO(character);
