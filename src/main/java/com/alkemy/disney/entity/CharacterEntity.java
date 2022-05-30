@@ -1,6 +1,9 @@
 package com.alkemy.disney.entity;
 
+import com.fasterxml.jackson.annotation.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -39,4 +42,11 @@ public class CharacterEntity {
                 })
     private List<MovieEntity> movies = new ArrayList<>();
 
+
+    public CharacterEntity(String name, Integer age, Double weight, String history) {
+        this.name = name;
+        this.age = age;
+        this.weight = weight;
+        this.history = history;
+    }
 }
