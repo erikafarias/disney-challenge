@@ -42,10 +42,10 @@ public class MovieServiceImpl implements MovieService {
     }
 
     public MovieDetailDTO saveMovie(MovieDetailDTO movie){
-        MovieEntity movieEntity = modelMapper.map(movie, MovieEntity.class);
+        MovieEntity movieEntity = movieMapper.movieDTOToEntity(movie);
         movieEntity.setCreationDate(LocalDate.now());
         MovieEntity savedMovie = movieRepository.save(movieEntity);
-        MovieDetailDTO savedMovieDTO = modelMapper.map(savedMovie, MovieDetailDTO.class);
+        MovieDetailDTO savedMovieDTO = movieMapper.movieEntityToDTO(savedMovie);
         return savedMovieDTO;
     }
 
@@ -55,7 +55,9 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public MovieDetailDTO updateMovie(Long id, MovieDetailDTO movie) {
+    public MovieDetailDTO updateMovie(Long id, MovieDetailDTO movieDTO) {
+        MovieEntity movie = movieMapper.movieDTOToEntity(movieDTO);
+
         Optional<MovieEntity> movieEntity = movieRepository.findById(id);
         MovieEntity movieToUpdate = movieEntity.get();
         movieToUpdate.setTitle(movie.getTitle());
@@ -65,6 +67,6 @@ public class MovieServiceImpl implements MovieService {
         movieToUpdate.setGenre(movie.getGenre());
 
         MovieEntity updatedMovie = movieRepository.save(movieToUpdate);
-        return modelMapper.map(updatedMovie, MovieDetailDTO.class);
+        return movieMapper.movieEntityToDTO(updatedMovie);
     }
 }
