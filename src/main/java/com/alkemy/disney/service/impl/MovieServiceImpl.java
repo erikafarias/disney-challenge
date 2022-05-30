@@ -3,6 +3,8 @@ package com.alkemy.disney.service.impl;
 import com.alkemy.disney.dto.CharacterMovieDTO;
 import com.alkemy.disney.dto.MovieDetailDTO;
 import com.alkemy.disney.dto.MovieListDTO;
+import com.alkemy.disney.dto.MovieUpdateDTO;
+import com.alkemy.disney.entity.GenreEntity;
 import com.alkemy.disney.entity.MovieEntity;
 import com.alkemy.disney.mapper.MovieMapper;
 import com.alkemy.disney.repository.MovieRepository;
@@ -55,16 +57,16 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public MovieDetailDTO updateMovie(Long id, MovieDetailDTO movieDTO) {
-        MovieEntity movie = movieMapper.movieDTOToEntity(movieDTO);
+    public MovieDetailDTO updateMovie(Long id, MovieUpdateDTO movieDTO) {
+        GenreEntity genre = modelMapper.map(movieDTO.getGenre(), GenreEntity.class);
+        MovieEntity movie = modelMapper.map(movieDTO, MovieEntity.class);
 
         Optional<MovieEntity> movieEntity = movieRepository.findById(id);
         MovieEntity movieToUpdate = movieEntity.get();
         movieToUpdate.setTitle(movie.getTitle());
         movieToUpdate.setImage(movie.getImage());
         movieToUpdate.setScore(movie.getScore());
-        movieToUpdate.setCharacters(movie.getCharacters());
-        movieToUpdate.setGenre(movie.getGenre());
+        movieToUpdate.setGenre(genre);
 
         MovieEntity updatedMovie = movieRepository.save(movieToUpdate);
         return movieMapper.movieEntityToDTO(updatedMovie);

@@ -2,6 +2,7 @@ package com.alkemy.disney.controller;
 
 import com.alkemy.disney.dto.MovieDetailDTO;
 import com.alkemy.disney.dto.MovieListDTO;
+import com.alkemy.disney.dto.MovieUpdateDTO;
 import com.alkemy.disney.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +41,7 @@ public class MovieController {
     }
 
     @PutMapping("/movies/{id}")
-    public ResponseEntity<MovieDetailDTO> updateMovie(@PathVariable Long id, @RequestBody MovieDetailDTO movie){
+    public ResponseEntity<MovieDetailDTO> updateMovie(@PathVariable Long id, @RequestBody MovieUpdateDTO movie){
         MovieDetailDTO movieUpdated = movieService.updateMovie(id, movie);
         return ResponseEntity.ok().body(movieUpdated);
     }

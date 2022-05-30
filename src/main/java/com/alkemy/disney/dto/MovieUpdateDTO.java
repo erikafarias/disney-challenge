@@ -13,5 +13,5 @@ public class MovieUpdateDTO {
     private String title;
     private LocalDate creationDate;
     private int score;
-    private Long genreId;
+    private GenreDTO genre;
 }
