@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -29,7 +30,7 @@ public class MovieController {
     }
 
     @PostMapping("/movies/create")
-    public ResponseEntity<MovieDetailDTO> saveMovie(@RequestBody MovieDetailDTO movie){
+    public ResponseEntity<MovieDetailDTO> saveMovie(@Valid @RequestBody MovieDetailDTO movie){
         MovieDetailDTO movieSaved = movieService.saveMovie(movie);
         return ResponseEntity.ok().body(movieSaved);
     }
@@ -41,7 +42,7 @@ public class MovieController {
     }
 
     @PutMapping("/movies/{id}")
-    public ResponseEntity<MovieDetailDTO> updateMovie(@PathVariable Long id, @RequestBody MovieUpdateDTO movie){
+    public ResponseEntity<MovieDetailDTO> updateMovie(@PathVariable Long id,@Valid @RequestBody MovieUpdateDTO movie){
         MovieDetailDTO movieUpdated = movieService.updateMovie(id, movie);
         return ResponseEntity.ok().body(movieUpdated);
     }

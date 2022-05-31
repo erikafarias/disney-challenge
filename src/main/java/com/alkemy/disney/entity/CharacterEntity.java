@@ -28,16 +28,16 @@ public class CharacterEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+
     private String name;
 
-    @NotNull @PositiveOrZero
+
     private Integer age;
 
-    @NotNull @Positive
+
     private Double weight;
 
-    @NotNull
+
     private String history;
 
     private boolean deleted = Boolean.FALSE;

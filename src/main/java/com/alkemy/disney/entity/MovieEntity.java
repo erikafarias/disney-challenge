@@ -26,19 +26,17 @@ public class MovieEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+
     private String image;
 
-    @NotNull
+
     private String title;
 
     @Column(name = "creation_date")
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     private LocalDate creationDate;
 
-    @Min(1)
-    @Max(5)
-    @NotNull
+
     private int score;
 
     @ManyToOne(fetch = FetchType.EAGER)
