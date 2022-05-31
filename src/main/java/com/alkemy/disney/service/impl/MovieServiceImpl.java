@@ -6,6 +6,7 @@ import com.alkemy.disney.dto.MovieListDTO;
 import com.alkemy.disney.dto.MovieUpdateDTO;
 import com.alkemy.disney.entity.GenreEntity;
 import com.alkemy.disney.entity.MovieEntity;
+import com.alkemy.disney.exception.ApiRequestException;
 import com.alkemy.disney.mapper.MovieMapper;
 import com.alkemy.disney.repository.MovieRepository;
 import com.alkemy.disney.service.MovieService;
@@ -53,6 +54,8 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public void deleteMovie(Long id) {
+        Optional<MovieEntity> movie = movieRepository.findById(id);
+        if(!movie.isPresent()){throw new RuntimeException("Película no encontrada");};
         movieRepository.deleteById(id);
     }
 
