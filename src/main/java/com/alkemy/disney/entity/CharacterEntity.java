@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -17,7 +19,9 @@ import java.util.List;
 @Table(name = "characters")
 @Getter
 @Setter
-@AllArgsConstructor @NoArgsConstructor
+@SQLDelete(sql = "UPDATE characters SET deleted = true WHERE id=?")
+@Where(clause = "deleted=false")
+@NoArgsConstructor
 public class CharacterEntity {
 
     @Id
@@ -35,6 +39,8 @@ public class CharacterEntity {
 
     @NotNull
     private String history;
+
+    private boolean deleted = Boolean.FALSE;
 
     @ManyToMany
             (mappedBy = "characters",
