@@ -1,5 +1,6 @@
 package com.alkemy.disney.exception;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
@@ -39,6 +41,18 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;
         ApiException apiException = new ApiException(
                 e.getMessage(),
+                BAD_REQUEST,
+                ZonedDateTime.now(ZoneId.of("Z")));
+
+        return new ResponseEntity<>(apiException, badRequest);
+
+    }
+
+    @ExceptionHandler({NoSuchElementException.class , EmptyResultDataAccessException.class, NullPointerException.class})
+    public ResponseEntity<Object> handleNoSuchElementException(Exception e) {
+        HttpStatus badRequest = HttpStatus.BAD_REQUEST;
+        ApiException apiException = new ApiException(
+                "Element not found",
                 BAD_REQUEST,
                 ZonedDateTime.now(ZoneId.of("Z")));
 
