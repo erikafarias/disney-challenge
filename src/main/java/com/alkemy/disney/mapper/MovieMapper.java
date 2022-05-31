@@ -17,6 +17,16 @@ public class MovieMapper {
 
     ModelMapper modelMapper = new ModelMapper();
 
+    public static void addCharacter(MovieEntity movieEntity, CharacterEntity characterEntity) {
+        Set<CharacterEntity> characters = movieEntity.getCharacters();
+        characters.add(characterEntity);
+    }
+
+    public static void removeCharacter(MovieEntity movieEntity, CharacterEntity characterEntity) {
+        Set<CharacterEntity> characters = movieEntity.getCharacters();
+        characters.remove(characterEntity);
+    }
+
     public MovieDetailDTO movieEntityToDTO(MovieEntity movieEntity){
         Set<CharacterMovieDTO> characters = new HashSet<>();
         for (CharacterEntity c: movieEntity.getCharacters()) {
