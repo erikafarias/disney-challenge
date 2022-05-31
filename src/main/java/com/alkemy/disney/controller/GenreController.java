@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 public class GenreController {
 
@@ -14,7 +16,7 @@ public class GenreController {
     private GenreService genreService;
 
     @PostMapping("/genres")
-    public GenreDTO addGenre(@RequestBody GenreDTO genre) {
+    public GenreDTO addGenre(@Valid @RequestBody GenreDTO genre) {
         return genreService.addGenre(genre);
     }
 }
