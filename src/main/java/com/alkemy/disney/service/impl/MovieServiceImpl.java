@@ -39,9 +39,10 @@ public class MovieServiceImpl implements MovieService {
     }
 
     public MovieDetailDTO getMovieById(Long id){
-        MovieEntity movieEntity = movieRepository.getMovieById(id);
-        MovieDetailDTO movieDTO = movieMapper.movieEntityToDTO(movieEntity);
-        return movieDTO;
+            MovieEntity movieEntity = movieRepository.getMovieById(id);
+            MovieDetailDTO movieDTO = movieMapper.movieEntityToDTO(movieEntity);
+            return movieDTO;
+
     }
 
     public MovieDetailDTO saveMovie(MovieDetailDTO movie){
@@ -55,23 +56,22 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public void deleteMovie(Long id) {
         Optional<MovieEntity> movie = movieRepository.findById(id);
-        if(!movie.isPresent()){throw new RuntimeException("Película no encontrada");};
         movieRepository.deleteById(id);
     }
 
     @Override
     public MovieDetailDTO updateMovie(Long id, MovieUpdateDTO movieDTO) {
-        GenreEntity genre = modelMapper.map(movieDTO.getGenre(), GenreEntity.class);
-        MovieEntity movie = modelMapper.map(movieDTO, MovieEntity.class);
+            GenreEntity genre = modelMapper.map(movieDTO.getGenre(), GenreEntity.class);
+            MovieEntity movie = modelMapper.map(movieDTO, MovieEntity.class);
 
-        Optional<MovieEntity> movieEntity = movieRepository.findById(id);
-        MovieEntity movieToUpdate = movieEntity.get();
-        movieToUpdate.setTitle(movie.getTitle());
-        movieToUpdate.setImage(movie.getImage());
-        movieToUpdate.setScore(movie.getScore());
-        movieToUpdate.setGenre(genre);
+            Optional<MovieEntity> movieEntity = movieRepository.findById(id);
+            MovieEntity movieToUpdate = movieEntity.get();
+            movieToUpdate.setTitle(movie.getTitle());
+            movieToUpdate.setImage(movie.getImage());
+            movieToUpdate.setScore(movie.getScore());
+            movieToUpdate.setGenre(genre);
 
-        MovieEntity updatedMovie = movieRepository.save(movieToUpdate);
-        return movieMapper.movieEntityToDTO(updatedMovie);
+            MovieEntity updatedMovie = movieRepository.save(movieToUpdate);
+            return movieMapper.movieEntityToDTO(updatedMovie);
     }
 }
