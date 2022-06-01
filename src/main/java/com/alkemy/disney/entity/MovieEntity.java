@@ -40,11 +40,11 @@ public class MovieEntity {
     private int score;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "genre_id")
+    @JoinColumn(name = "genre_id", updatable = false, insertable = false)
     private GenreEntity genre;
-//
-//    @Column(name = "genre_id")
-//    private Long genreId;
+
+   @Column(name = "genre_id")
+   private Long genreId;
 
 
     @ManyToMany(

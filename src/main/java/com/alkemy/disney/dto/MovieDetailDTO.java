@@ -26,15 +26,8 @@ public class MovieDetailDTO {
     @NotNull @Min(1) @Max(5)
     private int score;
     @NotNull
-    private GenreDTO genre;
+    private Long genreId;
     @NotNull
     private Set<CharacterMovieDTO> characters = new HashSet<>();
 
-    public MovieDetailDTO(String image, String title, int score, GenreDTO genre, Set<CharacterMovieDTO> characters) {
-        this.image = image;
-        this.title = title;
-        this.score = score;
-        this.genre = genre;
-        this.characters = characters;
-    }
 }
