@@ -1,6 +1,7 @@
 package com.alkemy.disney.controller;
 
 import com.alkemy.disney.dto.CharacterDTO;
+import com.alkemy.disney.dto.CharacterListDTO;
 import com.alkemy.disney.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,8 +25,8 @@ public class CharacterController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CharacterDTO>> getAll() {
-        List<CharacterDTO> characters = characterService.getAllCharacters();
+    public ResponseEntity<List<CharacterListDTO>> getAll() {
+        List<CharacterListDTO> characters = characterService.getAllCharacters();
         return ResponseEntity.ok().body(characters);
     }
 

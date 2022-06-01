@@ -12,6 +12,7 @@ public class CharacterMapper {
 
     public CharacterEntity characterDTO2Entity(CharacterDTO dto){
         CharacterEntity characterEntity = new CharacterEntity();
+        characterEntity.setImage(dto.getImage());
         characterEntity.setId(dto.getId());
         characterEntity.setName(dto.getName());
         characterEntity.setAge(dto.getAge());
@@ -22,6 +23,7 @@ public class CharacterMapper {
 
     public CharacterDTO characterEntity2DTO(CharacterEntity entity){
         CharacterDTO characterDTO = new CharacterDTO();
+        characterDTO.setImage(entity.getImage());
         characterDTO.setId(entity.getId());
         characterDTO.setName(entity.getName());
         characterDTO.setAge(entity.getAge());
@@ -39,6 +41,7 @@ public class CharacterMapper {
     }
 
    public CharacterEntity characterUpdateMapper(CharacterDTO character, CharacterEntity characterToUpdate){
+      characterToUpdate.setImage(character.getImage());
        characterToUpdate.setName(character.getName());
        characterToUpdate.setAge(character.getAge());
        characterToUpdate.setHistory(character.getHistory());

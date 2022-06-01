@@ -28,6 +28,7 @@ public class CharacterEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String image;
 
     private String name;
 
@@ -50,11 +51,4 @@ public class CharacterEntity {
                 })
     private List<MovieEntity> movies = new ArrayList<>();
 
-
-    public CharacterEntity(String name, Integer age, Double weight, String history) {
-        this.name = name;
-        this.age = age;
-        this.weight = weight;
-        this.history = history;
-    }
 }
