@@ -3,6 +3,7 @@ package com.alkemy.disney.mapper;
 import com.alkemy.disney.dto.CharacterMovieDTO;
 import com.alkemy.disney.dto.GenreDTO;
 import com.alkemy.disney.dto.MovieDetailDTO;
+import com.alkemy.disney.dto.MovieUpdateDTO;
 import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.entity.GenreEntity;
 import com.alkemy.disney.entity.MovieEntity;
@@ -41,5 +42,17 @@ public class MovieMapper {
         movieEntity.setCharacters(characters);
         movieEntity.setGenre(genre);
         return movieEntity;
+    }
+
+    public MovieEntity updateMovieMapper(MovieUpdateDTO movieDTO, MovieEntity movieToUpdate){
+        GenreEntity genre = modelMapper.map(movieDTO.getGenre(), GenreEntity.class);
+        MovieEntity movie = modelMapper.map(movieDTO, MovieEntity.class);
+
+        movieToUpdate.setTitle(movie.getTitle());
+        movieToUpdate.setImage(movie.getImage());
+        movieToUpdate.setScore(movie.getScore());
+        movieToUpdate.setGenre(genre);
+
+        return movieToUpdate;
     }
 }

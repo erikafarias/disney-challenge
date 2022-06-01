@@ -12,36 +12,36 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping("movies")
 public class MovieController {
 
     @Autowired
     MovieService movieService;
 
-    @GetMapping("/movies")
+    @GetMapping
     public ResponseEntity<List<MovieListDTO>> getMovies(){
         List<MovieListDTO> movies = movieService.getAllMovies();
         return ResponseEntity.ok().body(movies);
 }
 
-    @GetMapping("/movies/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<MovieDetailDTO> getMovieById(@PathVariable Long id){
         MovieDetailDTO movie = movieService.getMovieById(id);
         return ResponseEntity.ok().body(movie);
     }
 
-    @PostMapping("/movies/create")
+    @PostMapping
     public ResponseEntity<MovieDetailDTO> saveMovie(@Valid @RequestBody MovieDetailDTO movie){
         MovieDetailDTO movieSaved = movieService.saveMovie(movie);
         return ResponseEntity.ok().body(movieSaved);
     }
 
-    @DeleteMapping("/movies/{id}")
-    public ResponseEntity<String> deleteMovie(@PathVariable Long id){
+    @DeleteMapping("/{id}")
+    public void deleteMovie(@PathVariable Long id){
         movieService.deleteMovie(id);
-        return ResponseEntity.ok().body("Movie deleted successfully");
     }
 
-    @PutMapping("/movies/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<MovieDetailDTO> updateMovie(@PathVariable Long id,@Valid @RequestBody MovieUpdateDTO movie){
         MovieDetailDTO movieUpdated = movieService.updateMovie(id, movie);
         return ResponseEntity.ok().body(movieUpdated);

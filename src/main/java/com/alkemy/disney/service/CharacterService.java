@@ -14,5 +14,5 @@ public interface CharacterService {
 
     CharacterDTO update(Long id, CharacterDTO character);
 
-    CharacterDTO delete(Long id);
+    void delete(Long id);
 }
