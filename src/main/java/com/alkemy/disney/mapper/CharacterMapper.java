@@ -37,4 +37,8 @@ public class CharacterMapper {
         }
         return charactersDTOS;
     }
+
+   // public CharacterEntity characterUpdateMapper(CharacterDTO character, CharacterEntity characterToUpdate){
+   // }
+
 }
