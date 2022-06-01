@@ -23,8 +23,8 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-//@SQLDelete(sql = "UPDATE characters SET deleted = true WHERE id=?")
-//@Where(clause = "deleted=false")
+@SQLDelete(sql = "UPDATE movie SET deleted = true WHERE id=?")
+@Where(clause = "deleted=false")
 public class MovieEntity {
 
     @Id
@@ -51,7 +51,7 @@ public class MovieEntity {
     @Column(name = "genre_id")
     private Long genreId;
 
-    //private boolean deleted = Boolean.FALSE;
+    private boolean deleted = Boolean.FALSE;
 
 
     @ManyToMany(
