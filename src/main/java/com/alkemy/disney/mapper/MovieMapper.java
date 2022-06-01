@@ -10,6 +10,7 @@ import com.alkemy.disney.entity.MovieEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,6 +40,7 @@ public class MovieMapper {
         }
         GenreEntity genre = modelMapper.map(movieDTO.getGenre(), GenreEntity.class);
         MovieEntity movieEntity = modelMapper.map(movieDTO, MovieEntity.class);
+        movieEntity.setCreationDate(LocalDate.now());
         movieEntity.setCharacters(characters);
         movieEntity.setGenre(genre);
         return movieEntity;

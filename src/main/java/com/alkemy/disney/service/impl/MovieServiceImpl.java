@@ -50,7 +50,6 @@ public class MovieServiceImpl implements MovieService {
 
     public MovieDetailDTO saveMovie(MovieDetailDTO movie) {
         MovieEntity movieEntity = movieMapper.movieDTOToEntity(movie);
-        movieEntity.setCreationDate(LocalDate.now());
         MovieEntity savedMovie = movieRepository.save(movieEntity);
         MovieDetailDTO savedMovieDTO = movieMapper.movieEntityToDTO(savedMovie);
         return savedMovieDTO;
