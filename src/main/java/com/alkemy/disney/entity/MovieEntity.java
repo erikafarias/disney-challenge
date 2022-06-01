@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -19,7 +21,10 @@ import java.util.Set;
 @Table(name = "movie")
 @Getter
 @Setter
-@AllArgsConstructor @NoArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
+@SQLDelete(sql = "UPDATE movie SET deleted = true WHERE id=?")
+@Where(clause = "deleted=false")
 public class MovieEntity {
 
     @Id
@@ -43,8 +48,10 @@ public class MovieEntity {
     @JoinColumn(name = "genre_id", updatable = false, insertable = false)
     private GenreEntity genre;
 
-   @Column(name = "genre_id")
-   private Long genreId;
+    @Column(name = "genre_id")
+    private Long genreId;
+
+    private boolean deleted = Boolean.FALSE;
 
 
     @ManyToMany(
