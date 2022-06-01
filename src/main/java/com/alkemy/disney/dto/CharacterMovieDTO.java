@@ -12,6 +12,8 @@ import javax.validation.constraints.PositiveOrZero;
 public class CharacterMovieDTO {
     private Long id;
     @NotNull
+    private String image;
+    @NotNull
     private String name;
     @NotNull @PositiveOrZero
     private Integer age;

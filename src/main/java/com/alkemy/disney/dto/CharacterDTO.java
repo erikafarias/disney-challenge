@@ -13,6 +13,8 @@ import java.util.List;
 public class CharacterDTO {
     private Long id;
 
+    private String image;
+
     @NotNull
     private String name;
 
