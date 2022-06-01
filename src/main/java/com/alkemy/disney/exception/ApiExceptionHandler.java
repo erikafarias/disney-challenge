@@ -38,22 +38,10 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Object> handleException(RuntimeException e) {
-        HttpStatus badRequest = HttpStatus.BAD_REQUEST;
+        HttpStatus badRequest = HttpStatus.INTERNAL_SERVER_ERROR;
         ApiException apiException = new ApiException(
                 e.getMessage(),
-                BAD_REQUEST,
-                ZonedDateTime.now(ZoneId.of("Z")));
-
-        return new ResponseEntity<>(apiException, badRequest);
-
-    }
-
-    @ExceptionHandler({NoSuchElementException.class , EmptyResultDataAccessException.class, NullPointerException.class})
-    public ResponseEntity<Object> handleNoSuchElementException(Exception e) {
-        HttpStatus badRequest = HttpStatus.BAD_REQUEST;
-        ApiException apiException = new ApiException(
-                "Element not found",
-                BAD_REQUEST,
+                badRequest,
                 ZonedDateTime.now(ZoneId.of("Z")));
 
         return new ResponseEntity<>(apiException, badRequest);

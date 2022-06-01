@@ -6,6 +6,7 @@ import com.alkemy.disney.mapper.CharacterMapper;
 import com.alkemy.disney.repository.CharacterRepository;
 import com.alkemy.disney.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,8 +35,11 @@ public class CharacterServiceImpl implements CharacterService {
     }
 
     public CharacterDTO getCharacterDetailsByID(Long id) {
-        CharacterEntity character = characterRepository.getById(id);
-        CharacterDTO result = characterMapper.characterEntity2DTO(character);
+        Optional<CharacterEntity> character = characterRepository.findById(id);
+        if (!character.isPresent()) {
+            throw new RuntimeException("Character with id " + id + " not found");
+        }
+        CharacterDTO result = characterMapper.characterEntity2DTO(character.get());
         return result;
     }
 
@@ -65,11 +69,12 @@ public class CharacterServiceImpl implements CharacterService {
         return result;
     }
 
-    public CharacterDTO delete(Long id) {
-        CharacterEntity character = characterRepository.getById(id);
+    public void delete(Long id) {
+        Optional<CharacterEntity> character = characterRepository.findById(id);
+        if(!character.isPresent()){
+            throw new RuntimeException("Character with id " + id + " not found");
+        }
         characterRepository.deleteById(id);
-        CharacterDTO result = characterMapper.characterEntity2DTO(character);
-        return result;
     }
 
 
