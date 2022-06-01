@@ -6,11 +6,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 
-@Setter @Getter @AllArgsConstructor @NoArgsConstructor
-public class MovieListDTO {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class CharacterListDTO {
+
     private String image;
-    private String title;
-    private LocalDate creationDate;
+    private String name;
+
 }

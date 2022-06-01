@@ -1,13 +1,17 @@
 package com.alkemy.disney.service.impl;
 
 import com.alkemy.disney.dto.CharacterDTO;
+import com.alkemy.disney.dto.CharacterListDTO;
 import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.mapper.CharacterMapper;
 import com.alkemy.disney.repository.CharacterRepository;
 import com.alkemy.disney.service.CharacterService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +24,8 @@ public class CharacterServiceImpl implements CharacterService {
     @Autowired
     private CharacterRepository characterRepository;
 
+    ModelMapper modelMapper = new ModelMapper();
+
     public CharacterDTO save(CharacterDTO dto) {
         CharacterEntity characterEntity = characterMapper.characterDTO2Entity(dto);
         CharacterEntity characterEntitySaved = characterRepository.save(characterEntity);
@@ -27,49 +33,42 @@ public class CharacterServiceImpl implements CharacterService {
         return result;
     }
 
-    public List<CharacterDTO> getAllCharacters() {
+    public List<CharacterListDTO> getAllCharacters() {
         List<CharacterEntity> characters = characterRepository.findAll();
-        List<CharacterDTO> result = characterMapper.characterEntityList2DTOList(characters);
+        List<CharacterListDTO> result = new ArrayList<>();
+        for (CharacterEntity c : characters) {
+           CharacterListDTO cDTO = modelMapper.map(c, CharacterListDTO.class);
+              result.add(cDTO);
+        }
+
         return result;
     }
 
     public CharacterDTO getCharacterDetailsByID(Long id) {
-        CharacterEntity character = characterRepository.getById(id);
-        CharacterDTO result = characterMapper.characterEntity2DTO(character);
+        Optional<CharacterEntity> character = characterRepository.findById(id);
+        if (!character.isPresent()) {
+            throw new RuntimeException("Character with id " + id + " not found");
+        }
+        CharacterDTO result = characterMapper.characterEntity2DTO(character.get());
         return result;
     }
 
     public CharacterDTO update(Long id, CharacterDTO character) {
         Optional<CharacterEntity> characterEntityToUpdate = characterRepository.findById(id);
+        if (!characterEntityToUpdate.isPresent()) {
+            throw new RuntimeException("Character with id " + id + " not found");
+        }
         CharacterEntity characterToUpdate = characterEntityToUpdate.get();
-
-        characterToUpdate.setId(character.getId());
-        characterToUpdate.setName(character.getName());
-        characterToUpdate.setAge(character.getAge());
-        characterToUpdate.setHistory(character.getHistory());
-        characterToUpdate.setWeight(character.getWeight());
-        characterToUpdate.setMovies(character.getMovies());
-
-        CharacterDTO newCharacter = characterMapper.characterEntity2DTO(characterToUpdate);
-        List<CharacterEntity> characters = characterRepository.findAll();
-        List<CharacterDTO> result2 = characterMapper.characterEntityList2DTOList(characters);
-        CharacterEntity characterToBeUpdated = characterRepository.getById(id);
-        CharacterDTO characterToRemove = characterMapper.characterEntity2DTO(characterToBeUpdated);
-        result2.remove(characterToRemove);
-        result2.add(newCharacter);
-
-        characterToUpdate = characterMapper.characterDTO2Entity(character);
-        CharacterEntity characterEntityUpdated = characterRepository.save(characterToUpdate);
-        CharacterDTO result = characterMapper.characterEntity2DTO(characterEntityUpdated);
-        
-        return result;
+        CharacterEntity characterEntityUpdated = characterRepository.save(characterMapper.characterUpdateMapper(character, characterToUpdate));
+        return characterMapper.characterEntity2DTO(characterEntityUpdated);
     }
 
-    public CharacterDTO delete(Long id) {
-        CharacterEntity character = characterRepository.getById(id);
+    public void delete(Long id) {
+        Optional<CharacterEntity> character = characterRepository.findById(id);
+        if(!character.isPresent()){
+            throw new RuntimeException("Character with id " + id + " not found");
+        }
         characterRepository.deleteById(id);
-        CharacterDTO result = characterMapper.characterEntity2DTO(character);
-        return result;
     }
 
 

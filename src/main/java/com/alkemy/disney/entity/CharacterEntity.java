@@ -9,6 +9,9 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,11 +28,16 @@ public class CharacterEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String image;
+
     private String name;
+
 
     private Integer age;
 
+
     private Double weight;
+
 
     private String history;
 
@@ -43,11 +51,4 @@ public class CharacterEntity {
                 })
     private List<MovieEntity> movies = new ArrayList<>();
 
-
-    public CharacterEntity(String name, Integer age, Double weight, String history) {
-        this.name = name;
-        this.age = age;
-        this.weight = weight;
-        this.history = history;
-    }
 }

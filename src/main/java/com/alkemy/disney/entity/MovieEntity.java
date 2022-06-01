@@ -5,9 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,14 +21,19 @@ import java.util.Set;
 @Table(name = "movie")
 @Getter
 @Setter
-@AllArgsConstructor @NoArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
+@SQLDelete(sql = "UPDATE movie SET deleted = true WHERE id=?")
+@Where(clause = "deleted=false")
 public class MovieEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     private String image;
+
 
     private String title;
 
@@ -35,11 +45,13 @@ public class MovieEntity {
     private int score;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "genre_id")
+    @JoinColumn(name = "genre_id", updatable = false, insertable = false)
     private GenreEntity genre;
-//
-//    @Column(name = "genre_id")
-//    private Long genreId;
+
+    @Column(name = "genre_id")
+    private Long genreId;
+
+    private boolean deleted = Boolean.FALSE;
 
 
     @ManyToMany(
