@@ -47,13 +47,13 @@ public class MovieController {
         return ResponseEntity.ok().body(movieUpdated);
     }
 
-    @PostMapping("/movies/{id}/characters/{idCharacter}")
+    @PostMapping("/{id}/characters/{idCharacter}")
     public ResponseEntity<String> postCharacter(@PathVariable Long id, @PathVariable Long idCharacter) {
         movieService.postCharacter(id, idCharacter);
         return ResponseEntity.ok().body("Character posted successfully");
     }
 
-    @DeleteMapping("/movies/{id}/characters/{idCharacter}")
+    @DeleteMapping("/{id}/characters/{idCharacter}")
     public ResponseEntity<String> deleteCharacter(@PathVariable Long id, @PathVariable Long idCharacter) {
         movieService.deleteCharacter(id, idCharacter);
         return ResponseEntity.ok().body("Character deleted successfully");

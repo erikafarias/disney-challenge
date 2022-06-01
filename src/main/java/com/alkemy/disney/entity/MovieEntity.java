@@ -75,4 +75,8 @@ public class MovieEntity {
         this.genre = genre;
         this.characters = characters;
     }
+
+    public void addCharacter(CharacterEntity characterEntity){
+        characters.add(characterEntity);
+    }
 }

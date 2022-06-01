@@ -86,11 +86,25 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public MovieDetailDTO postCharacter(Long id, Long idCharacter) {
-        MovieEntity movieEntity = movieRepository.getMovieById(id);
-        CharacterEntity characterEntity = characterRepository.getById(idCharacter);
-        MovieMapper.addCharacter(movieEntity, characterEntity);
-        movieRepository.save(movieEntity);
-        return movieMapper.movieEntityToDTO(movieEntity);
+        Optional<MovieEntity> movieEntity = movieRepository.findById(id);
+        if (!movieEntity.isPresent()) {
+            throw new RuntimeException("Movie with id " + id + " not found");
+        }
+        MovieEntity movieToAddCharacters = movieEntity.get();
+        Optional<CharacterEntity> characterEntity = characterRepository.findById(idCharacter);
+        if(!characterEntity.isPresent()){
+            throw new RuntimeException(("Character with id " + idCharacter + " not found"));
+        }
+        CharacterEntity characterToAddInMovie = characterEntity.get();
+        if(movieToAddCharacters.getCharacters().contains(characterEntity)){
+            // Excepción el personaje ya está en la película
+        }
+        movieToAddCharacters.addCharacter(characterToAddInMovie);
+        characterToAddInMovie.addMovie(movieToAddCharacters);
+        movieRepository.save(movieToAddCharacters);
+        characterRepository.save(characterToAddInMovie);
+
+        return movieMapper.movieEntityToDTO(movieToAddCharacters);
     }
 
     @Override

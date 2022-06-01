@@ -51,4 +51,8 @@ public class CharacterEntity {
                 })
     private List<MovieEntity> movies = new ArrayList<>();
 
+    public void addMovie(MovieEntity movieEntity){
+        movies.add(movieEntity);
+    }
+
 }
