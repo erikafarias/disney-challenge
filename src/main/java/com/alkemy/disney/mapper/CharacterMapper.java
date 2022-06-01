@@ -37,4 +37,15 @@ public class CharacterMapper {
         }
         return charactersDTOS;
     }
+
+   public CharacterEntity characterUpdateMapper(CharacterDTO character, CharacterEntity characterToUpdate){
+       characterToUpdate.setName(character.getName());
+       characterToUpdate.setAge(character.getAge());
+       characterToUpdate.setHistory(character.getHistory());
+       characterToUpdate.setWeight(character.getWeight());
+       characterToUpdate.setMovies(character.getMovies());
+
+       return characterToUpdate;
+   }
+
 }

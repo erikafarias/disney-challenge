@@ -45,28 +45,12 @@ public class CharacterServiceImpl implements CharacterService {
 
     public CharacterDTO update(Long id, CharacterDTO character) {
         Optional<CharacterEntity> characterEntityToUpdate = characterRepository.findById(id);
+        if (!characterEntityToUpdate.isPresent()) {
+            throw new RuntimeException("Character with id " + id + " not found");
+        }
         CharacterEntity characterToUpdate = characterEntityToUpdate.get();
-
-        characterToUpdate.setId(character.getId());
-        characterToUpdate.setName(character.getName());
-        characterToUpdate.setAge(character.getAge());
-        characterToUpdate.setHistory(character.getHistory());
-        characterToUpdate.setWeight(character.getWeight());
-        characterToUpdate.setMovies(character.getMovies());
-
-        CharacterDTO newCharacter = characterMapper.characterEntity2DTO(characterToUpdate);
-        List<CharacterEntity> characters = characterRepository.findAll();
-        List<CharacterDTO> result2 = characterMapper.characterEntityList2DTOList(characters);
-        CharacterEntity characterToBeUpdated = characterRepository.getById(id);
-        CharacterDTO characterToRemove = characterMapper.characterEntity2DTO(characterToBeUpdated);
-        result2.remove(characterToRemove);
-        result2.add(newCharacter);
-
-        characterToUpdate = characterMapper.characterDTO2Entity(character);
-        CharacterEntity characterEntityUpdated = characterRepository.save(characterToUpdate);
-        CharacterDTO result = characterMapper.characterEntity2DTO(characterEntityUpdated);
-        
-        return result;
+        CharacterEntity characterEntityUpdated = characterRepository.save(characterMapper.characterUpdateMapper(character, characterToUpdate));
+        return characterMapper.characterEntity2DTO(characterEntityUpdated);
     }
 
     public void delete(Long id) {
