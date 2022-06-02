@@ -55,4 +55,5 @@ public class CharacterEntity {
         movies.add(movieEntity);
     }
 
+    public void removeMovie(MovieEntity movieToRemoveCharacters) { movies.remove(movieToRemoveCharacters);}
 }

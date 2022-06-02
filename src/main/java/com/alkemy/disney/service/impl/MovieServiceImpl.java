@@ -109,10 +109,21 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public void deleteCharacter(Long id, Long idCharacter) {
-        MovieEntity movieEntity = movieRepository.getMovieById(id);
-        CharacterEntity characterEntity = characterRepository.getById(idCharacter);
-        MovieMapper.removeCharacter(movieEntity, characterEntity);
-        movieRepository.save(movieEntity);
+        Optional<MovieEntity> movieEntity = movieRepository.findById(id);
+        if (!movieEntity.isPresent()) {
+            throw new RuntimeException("Movie with id " + id + " not found");
+        }
+        MovieEntity movieToRemoveCharacters = movieEntity.get();
+        Optional<CharacterEntity> characterEntity = characterRepository.findById(idCharacter);
+        if(!characterEntity.isPresent()){
+            throw new RuntimeException(("Character with id " + idCharacter + " not found"));
+        }
+        CharacterEntity characterToRemoveInMovie = characterEntity.get();
+        movieToRemoveCharacters.removeCharacter(characterToRemoveInMovie);
+        characterToRemoveInMovie.removeMovie(movieToRemoveCharacters);
+        movieRepository.save(movieToRemoveCharacters);
+        characterRepository.save(characterToRemoveInMovie);
+
     }
 
 

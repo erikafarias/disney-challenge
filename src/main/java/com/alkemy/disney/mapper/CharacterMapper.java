@@ -18,6 +18,7 @@ public class CharacterMapper {
         characterEntity.setAge(dto.getAge());
         characterEntity.setWeight(dto.getWeight());
         characterEntity.setHistory(dto.getHistory());
+        characterEntity.setMovies(dto.getMovies());
         return characterEntity;
     }
 
@@ -29,6 +30,7 @@ public class CharacterMapper {
         characterDTO.setAge(entity.getAge());
         characterDTO.setWeight(entity.getWeight());
         characterDTO.setHistory(entity.getHistory());
+        characterDTO.setMovies(entity.getMovies());
         return characterDTO;
     }
 
