@@ -20,5 +20,5 @@ public class MovieUpdateDTO {
     @NotNull @Min(1) @Max(5)
     private int score;
     @NotNull
-    private GenreDTO genre;
+    private Long genreId;
 }
