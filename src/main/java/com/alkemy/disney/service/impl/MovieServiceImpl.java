@@ -1,13 +1,14 @@
 package com.alkemy.disney.service.impl;
-
-import com.alkemy.disney.dto.CharacterMovieDTO;
+import com.alkemy.disney.mapper.CharacterMapper;
 import com.alkemy.disney.dto.MovieDetailDTO;
 import com.alkemy.disney.dto.MovieListDTO;
 import com.alkemy.disney.dto.MovieUpdateDTO;
+import com.alkemy.disney.entity.CharacterEntity;
 import com.alkemy.disney.entity.GenreEntity;
 import com.alkemy.disney.entity.MovieEntity;
 import com.alkemy.disney.exception.ApiRequestException;
 import com.alkemy.disney.mapper.MovieMapper;
+import com.alkemy.disney.repository.CharacterRepository;
 import com.alkemy.disney.repository.MovieRepository;
 import com.alkemy.disney.service.MovieService;
 import org.modelmapper.ModelMapper;
@@ -25,6 +26,10 @@ public class MovieServiceImpl implements MovieService {
     MovieRepository movieRepository;
     @Autowired
     MovieMapper movieMapper;
+    @Autowired
+    CharacterRepository characterRepository;
+    @Autowired
+    private CharacterMapper characterMapper;
 
     ModelMapper modelMapper = new ModelMapper();
 
@@ -78,4 +83,47 @@ public class MovieServiceImpl implements MovieService {
         MovieEntity updatedMovie = movieRepository.save(movieMapper.updateMovieMapper(movieDTO, movieToUpdate));
         return movieMapper.movieEntityToDTO(updatedMovie);
     }
+
+    @Override
+    public MovieDetailDTO postCharacter(Long id, Long idCharacter) {
+        Optional<MovieEntity> movieEntity = movieRepository.findById(id);
+        if (!movieEntity.isPresent()) {
+            throw new RuntimeException("Movie with id " + id + " not found");
+        }
+        MovieEntity movieToAddCharacters = movieEntity.get();
+        Optional<CharacterEntity> characterEntity = characterRepository.findById(idCharacter);
+        if(!characterEntity.isPresent()){
+            throw new RuntimeException(("Character with id " + idCharacter + " not found"));
+        }
+        CharacterEntity characterToAddInMovie = characterEntity.get();
+        if(movieToAddCharacters.getCharacters().contains(characterEntity)){
+            // Excepción el personaje ya está en la película
+        }
+        movieToAddCharacters.addCharacter(characterToAddInMovie);
+        characterToAddInMovie.addMovie(movieToAddCharacters);
+        movieRepository.save(movieToAddCharacters);
+        characterRepository.save(characterToAddInMovie);
+
+        return movieMapper.movieEntityToDTO(movieToAddCharacters);
+    }
+
+    @Override
+    public void deleteCharacter(Long id, Long idCharacter) {
+        Optional<MovieEntity> movieEntity = movieRepository.findById(id);
+        if (!movieEntity.isPresent()) {
+            throw new RuntimeException("Movie with id " + id + " not found");
+        }
+        MovieEntity movieToRemoveCharacters = movieEntity.get();
+        Optional<CharacterEntity> characterEntity = characterRepository.findById(idCharacter);
+        if(!characterEntity.isPresent()){
+            throw new RuntimeException(("Character with id " + idCharacter + " not found"));
+        }
+        CharacterEntity characterToRemoveInMovie = characterEntity.get();
+        movieToRemoveCharacters.removeCharacter(characterToRemoveInMovie);
+        characterToRemoveInMovie.removeMovie(movieToRemoveCharacters);
+        movieRepository.save(movieToRemoveCharacters);
+        characterRepository.save(characterToRemoveInMovie);
+    }
+
+
 }

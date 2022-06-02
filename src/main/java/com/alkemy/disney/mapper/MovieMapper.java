@@ -24,6 +24,16 @@ public class MovieMapper {
 
 
 
+    public static void addCharacter(MovieEntity movieEntity, CharacterEntity characterEntity) {
+        Set<CharacterEntity> characters = movieEntity.getCharacters();
+        characters.add(characterEntity);
+    }
+
+    public static void removeCharacter(MovieEntity movieEntity, CharacterEntity characterEntity) {
+        Set<CharacterEntity> characters = movieEntity.getCharacters();
+        characters.remove(characterEntity);
+    }
+
     public MovieDetailDTO movieEntityToDTO(MovieEntity movieEntity){
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         Set<CharacterMovieDTO> characters = new HashSet<>();

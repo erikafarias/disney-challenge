@@ -64,6 +64,7 @@ public class MovieEntity {
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "character_id")
     )
+    @JsonIgnore
     private Set<CharacterEntity> characters = new HashSet<>();
 
 
@@ -75,4 +76,10 @@ public class MovieEntity {
         this.genre = genre;
         this.characters = characters;
     }
+
+    public void addCharacter(CharacterEntity characterEntity){
+        characters.add(characterEntity);
+    }
+
+    public void removeCharacter(CharacterEntity characterEntity) { characters.remove(characterEntity); }
 }

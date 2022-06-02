@@ -1,7 +1,11 @@
 package com.alkemy.disney.mapper;
 
 import com.alkemy.disney.dto.CharacterDTO;
+import com.alkemy.disney.dto.MovieListDTO;
 import com.alkemy.disney.entity.CharacterEntity;
+import com.alkemy.disney.entity.MovieEntity;
+import com.alkemy.disney.repository.MovieRepository;
+import com.alkemy.disney.service.MovieService;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -18,6 +22,7 @@ public class CharacterMapper {
         characterEntity.setAge(dto.getAge());
         characterEntity.setWeight(dto.getWeight());
         characterEntity.setHistory(dto.getHistory());
+        characterEntity.setMovies(dto.getMovies());
         return characterEntity;
     }
 
@@ -29,6 +34,8 @@ public class CharacterMapper {
         characterDTO.setAge(entity.getAge());
         characterDTO.setWeight(entity.getWeight());
         characterDTO.setHistory(entity.getHistory());
+        characterDTO.setMovies(entity.getMovies());
+
         return characterDTO;
     }
 

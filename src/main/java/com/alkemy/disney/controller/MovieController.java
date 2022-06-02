@@ -46,4 +46,16 @@ public class MovieController {
         MovieDetailDTO movieUpdated = movieService.updateMovie(id, movie);
         return ResponseEntity.ok().body(movieUpdated);
     }
+
+    @PostMapping("/{id}/characters/{idCharacter}")
+    public ResponseEntity<String> postCharacter(@PathVariable Long id, @PathVariable Long idCharacter) {
+        movieService.postCharacter(id, idCharacter);
+        return ResponseEntity.ok().body("Character posted successfully");
+    }
+
+    @DeleteMapping("/{id}/characters/{idCharacter}")
+    public ResponseEntity<String> deleteCharacter(@PathVariable Long id, @PathVariable Long idCharacter) {
+        movieService.deleteCharacter(id, idCharacter);
+        return ResponseEntity.ok().body("Character deleted successfully");
+    }
 }
