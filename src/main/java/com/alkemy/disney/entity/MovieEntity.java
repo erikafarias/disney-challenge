@@ -64,6 +64,7 @@ public class MovieEntity {
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "character_id")
     )
+    @JsonIgnore
     private Set<CharacterEntity> characters = new HashSet<>();
 
 

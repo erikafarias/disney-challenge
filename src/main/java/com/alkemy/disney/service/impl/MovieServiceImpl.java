@@ -123,7 +123,6 @@ public class MovieServiceImpl implements MovieService {
         characterToRemoveInMovie.removeMovie(movieToRemoveCharacters);
         movieRepository.save(movieToRemoveCharacters);
         characterRepository.save(characterToRemoveInMovie);
-
     }
 
 

@@ -49,6 +49,7 @@ public class CharacterEntity {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
                 })
+    @JsonIgnore
     private List<MovieEntity> movies = new ArrayList<>();
 
     public void addMovie(MovieEntity movieEntity){
