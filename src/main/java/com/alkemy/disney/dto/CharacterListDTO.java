@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CharacterListDTO {
-
+    private Long id;
     private String image;
     private String name;
 
